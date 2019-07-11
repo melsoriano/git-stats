@@ -1,65 +1,60 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
-import user from "../data/user";
+import GhPolyglot from "gh-polyglot";
+import { Head, UserInfo, Charts } from "../components";
 
-const StyledContainer = styled.main`
-  img {
-    max-width: 200px;
-  }
-`;
+const User = props => {
+  const username = props.query.id;
+  const [userData, setUserData] = useState(null);
+  const [langData, setLangData] = useState(null);
+  const [repoData, setRepoData] = useState(null);
 
-class User extends Component {
-  state = {
-    username: "",
-    user: {}
-  };
-
-  componentDidMount() {
-    this.setState({ username: this.props.query.id });
-    const username = this.props.query.id;
-
+  const getUserData = () => {
     fetch(`https://api.github.com/users/${username}`)
       .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        this.setState({ user: json });
+      .then(json => setUserData(json))
+      .catch(error => {
+        console.error("Error:", error);
       });
-    this.setState({ user });
-  }
+  };
 
-  render() {
-    const { username, user } = this.state;
+  const getLangData = () => {
+    const me = new GhPolyglot(`${username}`);
+    me.userStats((err, stats) => {
+      if (err) {
+        console.error("Error:", err);
+      }
+      setLangData(stats);
+    });
+  };
 
-    return (
-      <StyledContainer>
-        <h1>
-          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
-            {username}
-          </a>
-        </h1>
-        <h2>{user.name}</h2>
-        <h3>{user.company}</h3>
-        <p>{user.blog}</p>
-        <p>{user.location}</p>
-        <p>{user.email}</p>
-        <p>{user.hireable ? "Hireable" : "Not Available"}</p>
-        <p>{user.bio}</p>
-        <p>Repos: {user.public_repos}</p>
-        <p>Followers: {user.followers}</p>
-        <p>Following: {user.following}</p>
-        <p>
-          Member since &nbsp;
-          {new Date(user.created_at).toLocaleDateString("en-US", {
-            month: "short",
-            year: "numeric"
-          })}
-        </p>
-        <img src={user.avatar_url} alt="" />
-      </StyledContainer>
-    );
-  }
-}
+  const getRepoData = () => {
+    fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+      .then(response => response.json())
+      .then(json => setRepoData(json))
+      .catch(error => {
+        console.error("Error:", error);
+      });
+  };
+
+  useEffect(() => {
+    getUserData();
+    getLangData();
+    getRepoData();
+  }, []);
+
+  return (
+    <main>
+      <Head
+        title={`${username ? `GitHub Stats | ${username}` : "GitHub Stats"}`}
+      />
+      {userData && <UserInfo userData={userData} />}
+      {langData && repoData && (
+        <Charts langData={langData} repoData={repoData} />
+      )}
+    </main>
+  );
+};
 
 User.propTypes = {
   query: PropTypes.object

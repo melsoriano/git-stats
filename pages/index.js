@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import Head from "../components/Head";
 import styled from "styled-components";
+import { Head } from "../components";
 
 const StyledContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   height: 100vh;
+  margin-top: 100px;
   form {
     border-radius: 5px;
     text-align: center;
     input {
-      font-size: 60px;
+      font-family: "DM Sans";
+      font-size: 30px;
       font-weight: 700;
       text-align: center;
       outline: 0;
@@ -20,6 +22,10 @@ const StyledContainer = styled.div`
       border-bottom: 1px solid #000;
       width: 100%;
       margin-top: 2rem;
+    }
+    label {
+      font-size: 24px;
+      font-weight: 700;
     }
   }
 `;
@@ -46,7 +52,7 @@ const Home = () => {
             });
           }}
         >
-          <label htmlFor="username">GitHub Username</label>
+          <label htmlFor="username">Enter Your GitHub Username</label>
           <input name="username" type="text" onChange={handleChange} />
         </form>
       </StyledContainer>
