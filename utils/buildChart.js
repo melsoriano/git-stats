@@ -5,6 +5,7 @@ const buildScales = axes => {
     xAxes: [
       {
         ticks: {
+          fontFamily: "DM Sans",
           fontSize: 12
         }
       }
@@ -13,6 +14,7 @@ const buildScales = axes => {
       {
         ticks: {
           beginAtZero: true,
+          fontFamily: "DM Sans",
           fontSize: 12
         }
       }
@@ -24,7 +26,10 @@ const buildScales = axes => {
 
 const buildLegend = legend => {
   const leg = {
-    position: "right"
+    position: "right",
+    labels: {
+      fontFamily: "DM Sans"
+    }
   };
   return legend ? leg : null;
 };
@@ -58,7 +63,12 @@ const buildChart = config => {
     },
     options: {
       scales: buildScales(axes),
-      legend: buildLegend(legend)
+      legend: buildLegend(legend),
+      tooltips: {
+        titleFontFamily: "DM Sans",
+        bodyFontFamily: "DM Sans",
+        cornerRadius: 3
+      }
     }
   });
 };

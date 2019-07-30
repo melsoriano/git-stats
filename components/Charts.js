@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { buildChart, backgroundColor, borderColor } from "../utils";
+import { buildChart, langColors, backgroundColor, borderColor } from "../utils";
 import ChartStyles from "./styles/ChartStyles";
 import { Section } from "../styles";
 
 const Charts = ({ langData, repoData }) => {
   // Create chart with langData
   const [langChartData, setLangChartData] = useState(null);
+
   const initLangChart = () => {
     const ctx = document.getElementById("langChart");
     const labels = langData.map(lang => lang.label);
@@ -70,14 +71,56 @@ const Charts = ({ langData, repoData }) => {
     }
   };
 
+  // Create Stars per language chart
+  const [thirdChartData, setThirdChartData] = useState(null);
+  const initThirdChart = () => {
+    const ctx = document.getElementById("thirdChart");
+    const filteredRepos = repoData.filter(
+      repo => !repo.fork && repo.stargazers_count > 0
+    );
+    const uniqueLangs = new Set(filteredRepos.map(repo => repo.language));
+    const labels = Array.from(uniqueLangs.values()).filter(l => l);
+    const data = labels.map(lang => {
+      const repos = filteredRepos.filter(repo => repo.language === lang);
+      const starsArr = repos.map(r => r.stargazers_count);
+      const starSum = starsArr.reduce((a, b) => a + b, 0);
+      return starSum;
+    });
+
+    setThirdChartData(data);
+
+    if (data.length > 0) {
+      const chartType = "doughnut";
+      const axes = false;
+      const legend = true;
+      const borderColor = labels.map(label => langColors[label]);
+      const backgroundColor = borderColor.map(color => `${color}B3`);
+      const config = {
+        ctx,
+        chartType,
+        labels,
+        data,
+        backgroundColor,
+        borderColor,
+        axes,
+        legend
+      };
+      buildChart(config);
+    }
+  };
+
   useEffect(() => {
     if (langData.length && repoData.length) {
       initLangChart();
       initStarChart();
+      initThirdChart();
     }
   }, []);
 
   const chartSize = 300;
+  const langChartError = !(langChartData && langChartData.length > 0);
+  const starChartError = !(starChartData && starChartData.length > 0);
+  const thirdChartError = !(thirdChartData && thirdChartData.length > 0);
 
   return (
     <Section>
@@ -88,6 +131,7 @@ const Charts = ({ langData, repoData }) => {
           </header>
 
           <div className="chart-container">
+            {langChartError && <p>Nothing to see here!</p>}
             <canvas id="langChart" width={chartSize} height={chartSize} />
           </div>
         </div>
@@ -97,7 +141,18 @@ const Charts = ({ langData, repoData }) => {
             <h2>Most Starred</h2>
           </header>
           <div className="chart-container">
+            {starChartError && <p>Nothing to see here!</p>}
             <canvas id="starChart" width={chartSize} height={chartSize} />
+          </div>
+        </div>
+
+        <div className="chart">
+          <header>
+            <h2>Stars per Language</h2>
+          </header>
+          <div className="chart-container">
+            {thirdChartError && <p>Nothing to see here!</p>}
+            <canvas id="thirdChart" width={chartSize} height={chartSize} />
           </div>
         </div>
       </ChartStyles>

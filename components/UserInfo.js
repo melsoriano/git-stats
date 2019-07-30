@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import UserInfoStyles from "./styles/UserInfoStyles";
-import { Section } from "../styles";
 
 const UserInfo = ({ userData }) => (
-  <Section>
+  <>
     {userData && (
       <UserInfoStyles>
         {userData.avatar_url && (
@@ -12,7 +11,9 @@ const UserInfo = ({ userData }) => (
             <img src={userData.avatar_url} alt="avatar" />
           </div>
         )}
+
         {userData.name && <h1>{userData.name}</h1>}
+
         {userData.login && (
           <h2>
             <a
@@ -24,11 +25,16 @@ const UserInfo = ({ userData }) => (
             </a>
           </h2>
         )}
+        {userData.bio && <p>{userData.bio}</p>}
         <div className="info">
-          {userData.bio && <h3>"{userData.bio}"</h3>}
+          {userData.company && (
+            <span className="info__item">{userData.company}</span>
+          )}
+
           {userData.location && (
             <span className="info__item">{userData.location}</span>
           )}
+
           {userData.created_at && (
             <span className="info__item">
               Joined{" "}
@@ -40,25 +46,26 @@ const UserInfo = ({ userData }) => (
             </span>
           )}
         </div>
+
         <div className="stats">
           <div className="stats__item">
             <span className="num">
               {userData.public_repos.toLocaleString()}
             </span>
-            <span className="num-label"> Repositories</span>
+            <span className="num-label">Repositories</span>
           </div>
           <div className="stats__item">
             <span className="num">{userData.followers.toLocaleString()}</span>
-            <span className="num-label"> Followers</span>
+            <span className="num-label">Followers</span>
           </div>
           <div className="stats__item">
             <span className="num">{userData.following.toLocaleString()}</span>
-            <span className="num-label"> Following</span>
+            <span className="num-label">Following</span>
           </div>
         </div>
       </UserInfoStyles>
     )}
-  </Section>
+  </>
 );
 
 UserInfo.propTypes = {

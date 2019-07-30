@@ -1,5 +1,5 @@
 {
-  "name": "github-profile-stats",
+  "name": "git-stats",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -17,6 +17,7 @@
     ]
   },
   "dependencies": {
+    "@primer/octicons-react": "^9.1.1",
     "babel-eslint": "^10.0.2",
     "babel-plugin-styled-components": "^1.10.6",
     "chart.js": "^2.8.0",
@@ -25,6 +26,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-flip-move": "^3.0.3",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
