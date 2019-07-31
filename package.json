@@ -2,8 +2,8 @@
   "name": "git-stats",
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export",
+    "start": "serve ./out"
   },
   "husky": {
     "hooks": {
@@ -12,7 +12,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
+      "node_modules/eslint/bin/eslint.js --fix",
       "git add"
     ]
   },
