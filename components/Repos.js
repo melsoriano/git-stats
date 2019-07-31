@@ -28,7 +28,7 @@ const Repos = ({ repoData }) => {
       const sortProperty = map[type];
 
       const sorted = repoData
-        .filter(repo => !repo.fork)
+        .filter(repo => !repo.fork && !repo.archived)
         .sort((a, b) => b[sortProperty] - a[sortProperty])
         .slice(0, LIMIT);
 
@@ -100,6 +100,7 @@ const Repos = ({ repoData }) => {
                     </div>
                     <div className="repo__stats">
                       <div className="repo__stats--left">
+                        <span>{repo.language}</span>
                         <span>
                           <Octicon icon={Star} />
                           {repo.stargazers_count.toLocaleString()}
@@ -108,7 +109,6 @@ const Repos = ({ repoData }) => {
                           <Octicon icon={RepoForked} />
                           {repo.forks.toLocaleString()}
                         </span>
-                        <span>{repo.language}</span>
                       </div>
                       <div className="repo__stats--right">
                         <span>{repo.size.toLocaleString()} KB</span>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { theme, mixins, media } from '../../styles';
 const { colors } = theme;
 
-const ReposStyles = styled.div`
+const RepoStyles = styled.div`
   .dropdown-wrapper {
     display: flex;
     align-items: center;
@@ -28,7 +28,7 @@ const ReposStyles = styled.div`
           color: ${colors.darkerGrey};
           background-color: ${colors.white};
           border-radius: 0.25rem;
-          box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
+          box-shadow: ${theme.boxShadow};
           transition: all 200ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
           ${media.bp600`
             padding: 1.5rem;
@@ -47,9 +47,8 @@ const ReposStyles = styled.div`
             color: ${colors.darkGreyBlack};
             margin-bottom: 0.75rem;
             font-size: 20px;
-            font-family: 'Fira Code';
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-family: 'Fira Mono';
+            font-weight: 500;
           }
 
           p {
@@ -105,4 +104,4 @@ const ReposStyles = styled.div`
   }
 `;
 
-export default ReposStyles;
+export default RepoStyles;

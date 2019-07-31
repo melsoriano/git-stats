@@ -42,16 +42,10 @@ const StyledContainer = styled.div`
       margin: 0 auto;
       padding: 1rem;
       color: ${colors.orange};
-      font-family: 'Fira Code';
+      font-family: 'Fira Mono';
       font-size: 2rem;
       font-weight: 400;
       text-align: center;
-    }
-
-    .submit {
-      ${mixins.blueButton};
-      margin-top: 3rem;
-      filter: none;
     }
   }
 `;

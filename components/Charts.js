@@ -79,7 +79,10 @@ const Charts = ({ langData, repoData }) => {
       repo => !repo.fork && repo.stargazers_count > 0
     );
     const uniqueLangs = new Set(filteredRepos.map(repo => repo.language));
-    const labels = Array.from(uniqueLangs.values()).filter(l => l);
+    const labels = Array.from(uniqueLangs.values()).filter(l => {
+      console.log(l);
+      return l;
+    });
     const data = labels.map(lang => {
       const repos = filteredRepos.filter(repo => repo.language === lang);
       const starsArr = repos.map(r => r.stargazers_count);

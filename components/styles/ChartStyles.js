@@ -17,7 +17,7 @@ const ChartStyles = styled.div`
     max-width: 500px;
     padding: 2rem;
     border-radius: 0.25rem;
-    box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+    box-shadow: ${theme.boxShadow};
     ${media.bp600`
       padding: 2rem 1rem;
     `};

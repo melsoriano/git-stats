@@ -41,7 +41,7 @@ const DropdownStyles = styled.div`
     width: 100%;
     z-index: 2;
     transition: ${theme.transition};
-    box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+    box-shadow: ${theme.boxShadow};
     opacity: 0;
     visibility: hidden;
     background-color: ${colors.offWhite};

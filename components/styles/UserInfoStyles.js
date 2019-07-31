@@ -27,7 +27,7 @@ const UserInfoStyles = styled.div`
     color: ${colors.offWhite};
   }
   h2 {
-    font-family: 'Fira Code';
+    font-family: 'Fira Mono';
     font-size: 1.5rem;
   }
 

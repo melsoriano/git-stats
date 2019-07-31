@@ -10,7 +10,8 @@ const theme = {
     darkGreyBlack: '#24292e'
   },
 
-  transition: `all 0.2s ease-in-out`
+  transition: `all 0.2s ease-in-out`,
+  boxShadow: `0 10px 30px -15px rgba(0, 0, 0, 0.2)`
 };
 
 export default theme;
