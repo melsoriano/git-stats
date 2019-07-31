@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { theme, mixins, media } from "../../styles";
+import styled from 'styled-components';
+import { theme, mixins, media } from '../../styles';
 const { colors } = theme;
 
 const ReposStyles = styled.div`
@@ -25,7 +25,7 @@ const ReposStyles = styled.div`
           flex-direction: column;
           padding: 2rem;
           height: 100%;
-          color: ${colors.grey2};
+          color: ${colors.darkerGrey};
           background-color: ${colors.white};
           border-radius: 0.25rem;
           box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
@@ -37,14 +37,17 @@ const ReposStyles = styled.div`
           &:hover,
           &:focus {
             box-shadow: 0 8px 20px -15px rgba(0, 0, 0, 0.2);
+            -webkit-transform: translate(0, -3px);
+            transform: translate(0, -3px);
+            text-decoration: none;
           }
 
           h3 {
             ${mixins.ellipsis};
-            color: ${colors.darkGrey};
+            color: ${colors.darkGreyBlack};
             margin-bottom: 0.75rem;
             font-size: 20px;
-            font-family: "Fira Mono";
+            font-family: 'Fira Code';
             font-weight: 700;
             letter-spacing: -0.5px;
           }

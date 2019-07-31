@@ -1,20 +1,14 @@
-import styled from "styled-components";
-import { theme, mixins, media } from "../../styles";
+import styled from 'styled-components';
+import { theme, mixins, media } from '../../styles';
 const { colors } = theme;
 
 const UserInfoStyles = styled.div`
   ${mixins.flexCenter};
   flex-direction: column;
-  margin-bottom: 30px;
+  padding: 5rem 1rem;
   text-align: center;
   background: ${colors.black};
   color: ${colors.offWhite};
-  height: 75vh;
-
-  ${media.bp600`
-    height: 95vh;
-    padding: 4rem 2rem 0rem;
-  `};
 
   .avatar {
     ${mixins.flexCenter};
@@ -28,40 +22,13 @@ const UserInfoStyles = styled.div`
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 10px;
     color: ${colors.offWhite};
-    ${media.bp400`
-      font-size: 2rem;
-    `};
   }
   h2 {
-    font-family: "Fira Mono";
+    font-family: 'Fira Code';
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    a {
-      color: ${colors.orange};
-    }
-  }
-  h3 {
-    color: ${colors.lightOrange};
-  }
-
-  a {
-    color: ${colors.lightOrange};
-    &:hover,
-    &:focus {
-      text-decoration: underline;
-    }
-  }
-
-  p {
-    width: 50%;
-    ${media.bp400`
-      max-width: 320px;
-      width: 100%;
-      font-size: 14px;
-    `};
   }
 
   .info {
@@ -81,6 +48,15 @@ const UserInfoStyles = styled.div`
     }
   }
 
+  .bio {
+    width: 50%;
+    margin-bottom: 2rem;
+    ${media.bp600`
+      width: 100%;
+      font-size: 14px;
+    `};
+  }
+
   .stats {
     display: grid;
     grid-template-columns: repeat(3, minmax(100px, 150px));
@@ -91,7 +67,7 @@ const UserInfoStyles = styled.div`
     &__item {
       ${mixins.flexCenter};
       flex-direction: column;
-      background-color: ${colors.darkGrey};
+      background-color: ${colors.darkGreyBlack};
       padding: 1rem;
       border-radius: 0.25rem;
       text-align: center;

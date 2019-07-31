@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import theme from "./theme";
+import { createGlobalStyle } from 'styled-components';
+import theme from './theme';
 const { colors } = theme;
 
 const GlobalStyle = createGlobalStyle`
@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'DM Sans';
-    color: ${colors.darkGrey};
+    color: ${colors.darkGreyBlack};
     background-color: ${colors.offWhite};
   }
 
@@ -40,9 +40,12 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
-    transition: ${theme.transition};
     color: ${colors.orange};
     display: inline-block;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
   }
 
   ul, ol {
@@ -65,7 +68,6 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     border: 0;
     border-radius: 0;
-    transition: ${theme.transition};
     &:focus,
     &:active {
       outline: 0;

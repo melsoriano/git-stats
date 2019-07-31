@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import {
   Head,
   UserInfo,
   Charts,
   Repos,
-  Footer,
   Corner,
   Error,
   RateLimit
-} from "../components";
-import GhPolyglot from "gh-polyglot";
+} from '../components';
+import GhPolyglot from 'gh-polyglot';
 
 const User = props => {
   const username = props.query.id;
@@ -20,7 +19,7 @@ const User = props => {
   const [error, setError] = useState({ active: false, type: 200 });
   const [rateLimit, setRateLimit] = useState(null);
 
-  const getUserData = () => {
+  const getUserData = useCallback(() => {
     fetch(`https://api.github.com/users/${username}`)
       .then(response => {
         if (response.status === 404) {
@@ -34,22 +33,22 @@ const User = props => {
       .then(json => setUserData(json))
       .catch(error => {
         setError({ active: true, type: 400 });
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
-  };
+  }, [username]);
 
-  const getLangData = () => {
+  const getLangData = useCallback(() => {
     const me = new GhPolyglot(`${username}`);
     me.userStats((err, stats) => {
       if (err) {
-        console.error("Error:", err);
+        console.error('Error:', err);
         setError({ active: true, type: 400 });
       }
       setLangData(stats);
     });
-  };
+  }, [username]);
 
-  const getRepoData = () => {
+  const getRepoData = useCallback(() => {
     fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
       .then(response => {
         if (response.status === 404) {
@@ -63,11 +62,10 @@ const User = props => {
       .then(json => {
         setRepoData(json);
       })
-      .catch(error => {
+      .catch(() => {
         setError({ active: true, type: 200 });
-        console.error("Error:", error);
       });
-  };
+  }, [username]);
 
   useEffect(() => {
     fetch(`https://api.github.com/rate_limit`)
@@ -82,7 +80,7 @@ const User = props => {
     getUserData();
     getLangData();
     getRepoData();
-  }, []);
+  }, [getLangData, getRepoData, getUserData]);
 
   return (
     <main>
@@ -93,7 +91,7 @@ const User = props => {
       ) : (
         <>
           <Head
-            title={`${username ? `Git Stats | ${username}` : "Git Stats"}`}
+            title={`${username ? `Git Stats | ${username}` : 'Git Stats'}`}
           />
 
           <Corner />
@@ -105,8 +103,6 @@ const User = props => {
           )}
 
           {repoData && <Repos repoData={repoData} />}
-
-          <Footer />
         </>
       )}
     </main>

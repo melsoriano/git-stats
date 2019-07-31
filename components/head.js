@@ -1,8 +1,8 @@
-import React from "react";
-import NextHead from "next/head";
-import PropTypes from "prop-types";
+import React from 'react';
+import NextHead from 'next/head';
+import PropTypes from 'prop-types';
 
-const defaultTitle = "Git Stats";
+const defaultTitle = 'Git Stats';
 
 const Head = props => (
   <NextHead>
@@ -10,7 +10,7 @@ const Head = props => (
     <title>{props.title || defaultTitle}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
-      href="https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Fira+Mono&display=swap"
+      href="https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Fira+Code&display=swap"
       rel="stylesheet"
     />
   </NextHead>

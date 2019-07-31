@@ -1,47 +1,49 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import Octicon, {
   Repo,
   Star,
   RepoForked,
   TriangleDown
-} from "@primer/octicons-react";
-import FlipMove from "react-flip-move";
-import { langColors } from "../utils";
-import RepoStyles from "./styles/RepoStyles";
-import DropdownStyles from "./styles/DropdownStyles";
-import { Section } from "../styles";
+} from '@primer/octicons-react';
+import FlipMove from 'react-flip-move';
+import RepoStyles from './styles/RepoStyles';
+import DropdownStyles from './styles/DropdownStyles';
+import { Section } from '../styles';
 
 const Repos = ({ repoData }) => {
   const [topRepos, setTopRepos] = useState([]);
-  const [sortType, setSortType] = useState("stars");
+  const [sortType, setSortType] = useState('stars');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const getTopRepos = type => {
-    const LIMIT = 9;
-    const map = {
-      stars: "stargazers_count",
-      forks: "forks_count",
-      size: "size"
-    };
+  const getTopRepos = useCallback(
+    type => {
+      const LIMIT = 9;
+      const map = {
+        stars: 'stargazers_count',
+        forks: 'forks_count',
+        size: 'size'
+      };
 
-    const sortProperty = map[type];
+      const sortProperty = map[type];
 
-    const sorted = repoData
-      .filter(repo => !repo.fork)
-      .sort((a, b) => b[sortProperty] - a[sortProperty])
-      .slice(0, LIMIT);
+      const sorted = repoData
+        .filter(repo => !repo.fork)
+        .sort((a, b) => b[sortProperty] - a[sortProperty])
+        .slice(0, LIMIT);
 
-    setTopRepos(sorted);
-  };
+      setTopRepos(sorted);
+    },
+    [repoData]
+  );
 
   useEffect(() => {
     if (repoData.length) {
       getTopRepos();
     }
-  }, []);
+  }, [getTopRepos, repoData.length]);
 
-  useEffect(() => getTopRepos(sortType), [sortType]);
+  useEffect(() => getTopRepos(sortType), [getTopRepos, sortType]);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
@@ -50,7 +52,7 @@ const Repos = ({ repoData }) => {
     toggleDropdown();
   };
 
-  const sortTypes = ["stars", "forks", "size"];
+  const sortTypes = ['stars', 'forks', 'size'];
 
   return (
     <Section>
@@ -106,6 +108,7 @@ const Repos = ({ repoData }) => {
                           <Octicon icon={RepoForked} />
                           {repo.forks.toLocaleString()}
                         </span>
+                        <span>{repo.language}</span>
                       </div>
                       <div className="repo__stats--right">
                         <span>{repo.size.toLocaleString()} KB</span>

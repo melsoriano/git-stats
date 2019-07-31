@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { theme } from "../styles";
+import styled from 'styled-components';
+import { theme } from '../styles';
 const { colors } = theme;
 
 const CornerStyles = styled.div`
@@ -48,11 +48,11 @@ const CornerStyles = styled.div`
 const Corner = () => (
   <CornerStyles>
     <a
-      href="https://github.com/melsoriano/github-profile-stats"
+      href="https://github.com/melsoriano/git-stats"
       target="_blank"
       rel="noopener noreferrer"
       className="github-corner"
-      aria-label="View source on GitHub"
+      aria-label="View source code on GitHub"
     >
       <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />

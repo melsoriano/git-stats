@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import Octicon, { MarkGithub } from "@primer/octicons-react";
-import { Head, Corner } from "../components";
-import { theme, mixins } from "../styles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import Octicon, { MarkGithub } from '@primer/octicons-react';
+import { Head, Corner } from '../components';
+import { theme, mixins } from '../styles';
 const { colors } = theme;
 
 const ErrorStyles = styled.div`
@@ -12,7 +12,7 @@ const ErrorStyles = styled.div`
   background-color: ${colors.black};
   background-image: linear-gradient(
     ${colors.black} 0%,
-    ${colors.darkGrey} 100%
+    ${colors.darkGreyBlack} 100%
   );
   color: ${colors.offWhite};
   height: 100vh;
@@ -23,7 +23,7 @@ const ErrorStyles = styled.div`
     margin-bottom: 3rem;
   }
   p {
-    font-size: 1rem;
+    font-size: 2rem;
   }
   a {
     color: ${colors.orange};
@@ -45,7 +45,7 @@ const Error = ({ error }) => (
       <div>
         {error.type === 403 ? (
           <p>
-            Oh no, you hit the{" "}
+            Oh no, you hit the{' '}
             <a
               href="https://developer.github.com/v3/rate_limit/"
               target="_blank"

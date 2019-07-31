@@ -1,10 +1,9 @@
-import styled from "styled-components";
-import { theme, mixins, media } from "../../styles";
+import styled from 'styled-components';
+import { theme, mixins, media } from '../../styles';
 const { colors } = theme;
 
 const ChartStyles = styled.div`
-  max-width: 1200px !important;
-  /* margin-top: -7rem !important; */
+  margin-top: -6rem !important;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 3rem;
@@ -12,9 +11,6 @@ const ChartStyles = styled.div`
   ${media.bp900`
     justify-items: center;
   `};
-  /* ${media.bp600`
-      margin-top: -8rem !important;
-    `}; */
 
   .chart {
     background-color: ${colors.white};
@@ -33,7 +29,7 @@ const ChartStyles = styled.div`
       }
     }
     p {
-      color: ${colors.grey2};
+      color: ${colors.darkerGrey};
     }
   }
 `;

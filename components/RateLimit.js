@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { theme } from "../styles";
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { theme } from '../styles';
 const { colors } = theme;
 
 const LimitStyles = styled.main`
@@ -20,7 +20,7 @@ const LimitStyles = styled.main`
     font-size: 10px;
     letter-spacing: 1px;
     margin: 0;
-    color: ${colors.grey2};
+    color: ${colors.darkerGrey};
   }
 `;
 

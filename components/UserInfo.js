@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import UserInfoStyles from "./styles/UserInfoStyles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import UserInfoStyles from './styles/UserInfoStyles';
 
 const UserInfo = ({ userData }) => (
   <>
@@ -12,20 +12,24 @@ const UserInfo = ({ userData }) => (
           </div>
         )}
 
-        {userData.name && <h1>{userData.name}</h1>}
+        <div className="bio">
+          {userData.name && <h1>{userData.name}</h1>}
 
-        {userData.login && (
-          <h2>
-            <a
-              href={userData.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @{userData.login}
-            </a>
-          </h2>
-        )}
-        {userData.bio && <p>{userData.bio}</p>}
+          {userData.login && (
+            <h2>
+              <a
+                href={userData.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @{userData.login}
+              </a>
+            </h2>
+          )}
+
+          {userData.bio && <p>{userData.bio}</p>}
+        </div>
+
         <div className="info">
           {userData.company && (
             <span className="info__item">{userData.company}</span>
@@ -37,11 +41,11 @@ const UserInfo = ({ userData }) => (
 
           {userData.created_at && (
             <span className="info__item">
-              Joined{" "}
-              {new Date(userData.created_at).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric"
+              Joined{' '}
+              {new Date(userData.created_at).toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
               })}
             </span>
           )}

@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { theme, mixins } from "../../styles";
+import styled, { css } from 'styled-components';
+import { theme, mixins } from '../../styles';
 const { colors } = theme;
 
 const DropdownStyles = styled.div`
@@ -16,9 +16,9 @@ const DropdownStyles = styled.div`
     font-weight: 500;
     line-height: 1;
     text-align: left;
-    color: ${colors.orange};
+    color: ${colors.darkGreyBlack};
     background-color: transparent;
-    border: 1px solid ${colors.orange};
+    border: 1px solid ${colors.darkGreyBlack};
     padding: 10px 7px;
     border-radius: 5px;
 
@@ -32,7 +32,6 @@ const DropdownStyles = styled.div`
       margin-left: 0.5rem;
     }
     label {
-      transition: ${theme.transition};
       cursor: pointer;
     }
   }

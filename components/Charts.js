@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { buildChart, langColors, backgroundColor, borderColor } from "../utils";
-import ChartStyles from "./styles/ChartStyles";
-import { Section } from "../styles";
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { buildChart, langColors, backgroundColor, borderColor } from '../utils';
+import ChartStyles from './styles/ChartStyles';
+import { Section } from '../styles';
 
 const Charts = ({ langData, repoData }) => {
   // Create chart with langData
   const [langChartData, setLangChartData] = useState(null);
 
-  const initLangChart = () => {
-    const ctx = document.getElementById("langChart");
+  const initLangChart = useCallback(() => {
+    const ctx = document.getElementById('langChart');
     const labels = langData.map(lang => lang.label);
     const data = langData.map(lang => lang.value);
 
@@ -21,7 +21,7 @@ const Charts = ({ langData, repoData }) => {
           `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}B3`
       );
       const borderColor = langData.map(lang => `${lang.color}`);
-      const chartType = "pie";
+      const chartType = 'pie';
       const axes = false;
       const legend = true;
       const config = {
@@ -36,14 +36,14 @@ const Charts = ({ langData, repoData }) => {
       };
       buildChart(config);
     }
-  };
+  }, [langData]);
 
   // Create Most Starred chart
   const [starChartData, setStarChartData] = useState(null);
-  const initStarChart = () => {
-    const ctx = document.getElementById("starChart");
+  const initStarChart = useCallback(() => {
+    const ctx = document.getElementById('starChart');
     const LIMIT = 5;
-    const sortProperty = "stargazers_count";
+    const sortProperty = 'stargazers_count';
     const mostStarredRepos = repoData
       .filter(repo => !repo.fork)
       .sort((a, b) => b[sortProperty] - a[sortProperty])
@@ -54,7 +54,7 @@ const Charts = ({ langData, repoData }) => {
     setStarChartData(data);
 
     if (data.length > 0) {
-      const chartType = "bar";
+      const chartType = 'bar';
       const axes = true;
       const legend = false;
       const config = {
@@ -69,12 +69,12 @@ const Charts = ({ langData, repoData }) => {
       };
       buildChart(config);
     }
-  };
+  }, [repoData]);
 
   // Create Stars per language chart
   const [thirdChartData, setThirdChartData] = useState(null);
-  const initThirdChart = () => {
-    const ctx = document.getElementById("thirdChart");
+  const initThirdChart = useCallback(() => {
+    const ctx = document.getElementById('thirdChart');
     const filteredRepos = repoData.filter(
       repo => !repo.fork && repo.stargazers_count > 0
     );
@@ -90,7 +90,7 @@ const Charts = ({ langData, repoData }) => {
     setThirdChartData(data);
 
     if (data.length > 0) {
-      const chartType = "doughnut";
+      const chartType = 'doughnut';
       const axes = false;
       const legend = true;
       const borderColor = labels.map(label => langColors[label]);
@@ -107,7 +107,7 @@ const Charts = ({ langData, repoData }) => {
       };
       buildChart(config);
     }
-  };
+  }, [repoData]);
 
   useEffect(() => {
     if (langData.length && repoData.length) {
@@ -115,7 +115,13 @@ const Charts = ({ langData, repoData }) => {
       initStarChart();
       initThirdChart();
     }
-  }, []);
+  }, [
+    initLangChart,
+    initStarChart,
+    initThirdChart,
+    langData.length,
+    repoData.length
+  ]);
 
   const chartSize = 300;
   const langChartError = !(langChartData && langChartData.length > 0);

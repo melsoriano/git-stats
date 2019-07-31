@@ -1,6 +1,6 @@
-import App, { Container } from "next/app";
-import React from "react";
-import { GlobalStyle } from "../styles";
+import App, { Container } from 'next/app';
+import React from 'react';
+import { GlobalStyle } from '../styles';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
