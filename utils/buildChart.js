@@ -1,11 +1,11 @@
-import Chart from "chart.js";
+import Chart from 'chart.js';
 
 const buildScales = axes => {
   const scales = {
     xAxes: [
       {
         ticks: {
-          fontFamily: "DM Sans",
+          fontFamily: 'DM Sans',
           fontSize: 12
         }
       }
@@ -14,7 +14,7 @@ const buildScales = axes => {
       {
         ticks: {
           beginAtZero: true,
-          fontFamily: "DM Sans",
+          fontFamily: 'DM Sans',
           fontSize: 12
         }
       }
@@ -26,9 +26,9 @@ const buildScales = axes => {
 
 const buildLegend = legend => {
   const leg = {
-    position: "right",
+    position: 'right',
     labels: {
-      fontFamily: "DM Sans"
+      fontFamily: 'DM Sans'
     }
   };
   return legend ? leg : null;
@@ -65,8 +65,8 @@ const buildChart = config => {
       scales: buildScales(axes),
       legend: buildLegend(legend),
       tooltips: {
-        titleFontFamily: "DM Sans",
-        bodyFontFamily: "DM Sans",
+        titleFontFamily: 'DM Sans',
+        bodyFontFamily: 'DM Sans',
         cornerRadius: 3
       }
     }
