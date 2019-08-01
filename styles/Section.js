@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { media } from '../styles';
 
 const Section = styled.section`
-  padding: 3rem 5rem;
+  padding: 3rem;
+  ${media.bp600`
+      padding: 3rem 1rem;
+    `};
 
   & > div {
     max-width: 1200px;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { theme, mixins, media } from '../../styles';
+import { theme, media } from '../../styles';
 const { colors } = theme;
 
 const ChartStyles = styled.div`
@@ -22,12 +22,11 @@ const ChartStyles = styled.div`
       padding: 2rem 1rem;
     `};
 
-    header {
-      ${mixins.flexBetween};
-      h2 {
-        font-size: 1.5rem;
-      }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
     }
+
     p {
       color: ${colors.darkerGrey};
     }
