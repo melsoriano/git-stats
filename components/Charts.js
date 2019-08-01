@@ -6,14 +6,14 @@ import { Section } from '../styles';
 
 const Charts = ({ langData, repoData }) => {
   // Create chart with langData
-  const [langChartData, setLangChartData] = useState(null);
+  const [topLangChartData, setTopLangChartData] = useState(null);
 
-  const initLangChart = useCallback(() => {
+  const initTopLangChart = useCallback(() => {
     const ctx = document.getElementById('langChart');
     const labels = langData.map(lang => lang.label);
     const data = langData.map(lang => lang.value);
 
-    setLangChartData(data);
+    setTopLangChartData(data);
 
     if (data.length > 0) {
       const backgroundColor = langData.map(
@@ -72,25 +72,22 @@ const Charts = ({ langData, repoData }) => {
   }, [repoData]);
 
   // Create Stars per language chart
-  const [thirdChartData, setThirdChartData] = useState(null);
-  const initThirdChart = useCallback(() => {
-    const ctx = document.getElementById('thirdChart');
+  const [starLangChart, setStarLangChartData] = useState(null);
+  const initStarLangChart = useCallback(() => {
+    const ctx = document.getElementById('starLangChart');
     const filteredRepos = repoData.filter(
       repo => !repo.fork && repo.stargazers_count > 0
     );
     const uniqueLangs = new Set(filteredRepos.map(repo => repo.language));
-    const labels = Array.from(uniqueLangs.values()).filter(l => {
-      console.log(l);
-      return l;
-    });
+    const labels = Array.from(uniqueLangs.values()).filter(l => l);
     const data = labels.map(lang => {
-      const repos = filteredRepos.filter(repo => repo.language === lang);
-      const starsArr = repos.map(r => r.stargazers_count);
-      const starSum = starsArr.reduce((a, b) => a + b, 0);
-      return starSum;
+      return filteredRepos
+        .filter(repo => repo.language === lang)
+        .map(repo => repo.stargazers_count)
+        .reduce((a, b) => a + b, 0);
     });
 
-    setThirdChartData(data);
+    setStarLangChartData(data);
 
     if (data.length > 0) {
       const chartType = 'doughnut';
@@ -114,41 +111,36 @@ const Charts = ({ langData, repoData }) => {
 
   useEffect(() => {
     if (langData.length && repoData.length) {
-      initLangChart();
+      initTopLangChart();
       initStarChart();
-      initThirdChart();
+      initStarLangChart();
     }
   }, [
-    initLangChart,
+    initTopLangChart,
     initStarChart,
-    initThirdChart,
+    initStarLangChart,
     langData.length,
     repoData.length
   ]);
 
   const chartSize = 300;
-  const langChartError = !(langChartData && langChartData.length > 0);
+  const topLangChartError = !(topLangChartData && topLangChartData.length > 0);
   const starChartError = !(starChartData && starChartData.length > 0);
-  const thirdChartError = !(thirdChartData && thirdChartData.length > 0);
+  const starLangChartError = !(starLangChart && starLangChart.length > 0);
 
   return (
     <Section>
       <ChartStyles>
         <div className="chart">
-          <header>
-            <h2>Top Languages</h2>
-          </header>
-
+          <h2>Top Languages</h2>
           <div className="chart-container">
-            {langChartError && <p>Nothing to see here!</p>}
+            {topLangChartError && <p>Nothing to see here!</p>}
             <canvas id="langChart" width={chartSize} height={chartSize} />
           </div>
         </div>
 
         <div className="chart">
-          <header>
-            <h2>Most Starred</h2>
-          </header>
+          <h2>Most Starred</h2>
           <div className="chart-container">
             {starChartError && <p>Nothing to see here!</p>}
             <canvas id="starChart" width={chartSize} height={chartSize} />
@@ -156,12 +148,10 @@ const Charts = ({ langData, repoData }) => {
         </div>
 
         <div className="chart">
-          <header>
-            <h2>Stars per Language</h2>
-          </header>
+          <h2>Stars per Language</h2>
           <div className="chart-container">
-            {thirdChartError && <p>Nothing to see here!</p>}
-            <canvas id="thirdChart" width={chartSize} height={chartSize} />
+            {starLangChartError && <p>Nothing to see here!</p>}
+            <canvas id="starLangChart" width={chartSize} height={chartSize} />
           </div>
         </div>
       </ChartStyles>
